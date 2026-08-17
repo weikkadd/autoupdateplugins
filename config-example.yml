@@ -1,18 +1,111 @@
-# AutoUpdatePlugins 配置文件示例
-# 位置: plugins/AutoUpdatePlugins/config/config.yml
+# AutoUpdatePlugins 配置示例
 
-# 自动检查更新间隔（分钟）
+以下是 AutoUpdatePlugins 的配置文件示例，可以根据需要修改。
+
+## 配置文件位置
+
+```
+plugins/AutoUpdatePlugins/config/config.yml
+```
+
+## 配置示例
+
+```yaml
+# 自动检查更新的间隔时间（单位：分钟）
 check-interval: 60
 
-# 插件更新列表
+# 要监控更新的插件列表
 update-list:
-  - plugin-name: "EssentialsX"
+  - name: "EssentialsX"
     enabled: true
-  - plugin-name: "WorldEdit"
+    auto-download: true
+  - name: "WorldEdit"
     enabled: true
+    auto-download: false
+  - name: "LuckPerms"
+    enabled: true
+    auto-download: true
 
-# 日志级别 (INFO, WARNING, SEVERE)
+# 日志级别
+# 可选值: DEBUG, INFO, WARNING, SEVERE
 log-level: INFO
 
 # 自定义下载源（可选）
-download-source: "https://example.com/plugins"
+# 如果不设置，将使用默认的 SpigotMC 下载源
+download-source: ""
+
+# 是否启用自动重启（当插件更新后）
+auto-restart: false
+
+# 更新失败时的重试次数
+max-retries: 3
+
+# 超时设置（秒）
+timeout: 30
+```
+
+## 使用说明
+
+1. 创建配置文件目录：
+   ```
+   plugins/AutoUpdatePlugins/config/
+   ```
+
+2. 创建 `config.yml` 文件，复制上面的配置内容
+
+3. 根据需要修改配置项
+
+4. 重启服务器使配置生效
+
+## 配置项详解
+
+### check-interval
+- 类型：整数
+- 默认值：60
+- 说明：每隔多少分钟检查一次更新
+
+### update-list
+- 类型：列表
+- 说明：需要监控的插件列表
+- 子项：
+  - `name`：插件名称（与 plugins/ 目录下的 JAR 文件名匹配）
+  - `enabled`：是否启用该插件的更新检查
+  - `auto-download`：发现新版本时是否自动下载
+
+### log-level
+- 类型：字符串
+- 可选值：DEBUG, INFO, WARNING, SEVERE
+- 说明：控制日志输出级别
+
+### download-source
+- 类型：字符串（URL）
+- 默认值：空（使用默认源）
+- 说明：自定义插件下载源地址
+
+### auto-restart
+- 类型：布尔值
+- 默认值：false
+- 说明：插件更新后是否自动重启服务器
+
+### max-retries
+- 类型：整数
+- 默认值：3
+- 说明：更新失败时的最大重试次数
+
+### timeout
+- 类型：整数（秒）
+- 默认值：30
+- 说明：下载操作的超时时间
+
+## 命令列表
+
+- `/update` - 立即检查并更新所有启用的插件
+- `/aup` - 显示管理菜单
+- `/aup list` - 显示当前插件列表
+- `/aup add <插件名>` - 添加插件到更新列表
+- `/aup remove <插件名>` - 从更新列表移除插件
+
+## 权限列表
+
+- `autoupdateplugins.update` - 使用 /update 命令
+- `autoupdateplugins.manage` - 使用 /aup 命令和管理配置
