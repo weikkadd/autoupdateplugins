@@ -1,0 +1,18 @@
+# AutoUpdatePlugins 配置文件示例
+# 位置: plugins/AutoUpdatePlugins/config/config.yml
+
+# 自动检查更新间隔（分钟）
+check-interval: 60
+
+# 插件更新列表
+update-list:
+  - plugin-name: "EssentialsX"
+    enabled: true
+  - plugin-name: "WorldEdit"
+    enabled: true
+
+# 日志级别 (INFO, WARNING, SEVERE)
+log-level: INFO
+
+# 自定义下载源（可选）
+download-source: "https://example.com/plugins"
